@@ -1,11 +1,15 @@
 package fr.miniature.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private int nbUsers = 0;
     private int id;
     private String login;
     private String email;
     private String password;
+    private List<User> subscriptions;
 
     
     public User(String login, String email, String password) {
@@ -13,6 +17,7 @@ public class User {
         this.login = login;
         this.email = email;
         this.password = password;
+        this.subscriptions = new ArrayList<>();
     }
 
 
@@ -55,8 +60,11 @@ public class User {
         this.password = password;
     }
 
-    
 
+    @Override
+    public String toString() {
+        return login;
+    }
 
    
     

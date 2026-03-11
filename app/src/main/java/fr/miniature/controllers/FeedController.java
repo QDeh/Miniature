@@ -1,11 +1,14 @@
+
 package fr.miniature.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.jspecify.annotations.NonNull;
 
+import fr.miniature.models.Post;
 import fr.miniature.models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,35 +17,29 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet({"/register", "/login"})
-public class AuthController extends HttpServlet {
+@WebServlet("/feeds")
+public class FeedController extends HttpServlet {
 
-    private List<@NonNull User> users = new ArrayList<>();
+    private List<@NonNull Post> posts = new ArrayList<>();
 
     public void init() {
-        users.add(new User("shinmen", "shinmen@gmail.com", "123456"));
+        posts.add(new Post(0, new User("suer", "user@gmail.com", ""), "pcoucou", new Date()));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path = req.getServletPath();
-        if (path.equals("/register")) {
-            req.setAttribute("users", users);
-            req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req, resp);
-
-        } else if (path.equals("/login")) {
-            req.setAttribute("users", users);
-            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
-        }
         
+            req.setAttribute("posts", posts);
+            req.getRequestDispatcher("/WEB-INF/views/feeds.jsp").forward(req, resp);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path = req.getServletPath();
+        String action = req.getParameter("action");
 
-        if (path.equals("/register")) {
-            String loginString = req.getParameter("login");
+        if (action.equals("recommendations")) {
+            /*String loginString = req.getParameter("login");
             String emailString = req.getParameter("email");
             String paString = req.getParameter("password");
             String confirmString = req.getParameter("confirm");
@@ -56,12 +53,12 @@ public class AuthController extends HttpServlet {
                 User newUser = new User(loginString, emailString, paString);
                 users.add(newUser);
                 resp.sendRedirect("/login");
-            }
+            }*/
         
             
 
-        } else if (path.equals("/login")) {
-            String loginString = req.getParameter("login");
+        } else if (action.equals("subscriptions")) {
+            /*String loginString = req.getParameter("login");
             String paString = req.getParameter("password");
             boolean found = users.stream()
                 .anyMatch(u -> u.getLogin().equals(loginString) && u.getPassword().equals(paString));
@@ -74,16 +71,8 @@ public class AuthController extends HttpServlet {
             }
             
 
+        }*/
+
         }
-
-    }
-
-    private String validate(String loginString, String emailString, String paString, String confirmString) {
-        if (loginString.isBlank()) return "Username vide";
-        if (!paString.equals(confirmString)) return "Les mots de passe ne correspondent pas";
-        if (users.stream().anyMatch(u -> u.getLogin().equals(loginString))) return "Username déjà pris";
-        return null;
 }
-
-    
 }
