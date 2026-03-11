@@ -23,7 +23,7 @@ public class FeedController extends HttpServlet {
     private List<@NonNull Post> posts = new ArrayList<>();
 
     public void init() {
-        posts.add(new Post(0, new User("suer", "user@gmail.com", ""), "pcoucou", new Date()));
+        posts.add(new Post(0, new User("suer", "user@gmail.com", ""), "pcoucou"));
     }
 
     @Override

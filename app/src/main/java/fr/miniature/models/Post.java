@@ -1,5 +1,6 @@
 package fr.miniature.models;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Post {
     private int nbPosts = 0;
@@ -8,16 +9,17 @@ public class Post {
     private String content;
     private int likes;
     private boolean isLiked;
-    private Date date;
+    private Date date = new Date();
+    private String formattedDate;
 
     
-    public Post(int id, User owner, String content, Date date) {
+    public Post(int id, User owner, String content) {
         this.id = ++nbPosts;
         this.owner = owner;
         this.content = content;
         this.likes = 0;
         this.isLiked = false;
-        this.date = date;
+        this.formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(date) + " à " + new SimpleDateFormat("HH:mm:ss").format(date);
     }
 
 
@@ -96,6 +98,16 @@ public class Post {
 
     public void decrementLikes(int likes){
         likes--;
+    }
+
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
     }
 
 
