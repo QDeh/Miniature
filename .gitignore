@@ -9,3 +9,5 @@ build
 
 # ignore obsidian config
 .obsidian
+
+app/bin
