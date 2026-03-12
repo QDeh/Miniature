@@ -13,8 +13,11 @@
 <body>
     <header>
         <h1>MINIATURE</h1>
-        <button name="deconnect">Se déconnecter</button>
+        <form method="post" action="/feeds">
+            <button name="action" value="logout" type="submit">Se déconnecter</button>
+        </form>
         <p>Bienvenue <%= ((User) session.getAttribute("user")).getLogin() %>.</p>
+        <p>Abonnements <%= ((User) session.getAttribute("user")).getSubscriptions() %>.</p>
     </header>
     <main>
         <form method="get">
@@ -23,7 +26,7 @@
         </form>
 
         <article>
-            <form method="post">
+            <form method="post" action="/feeds">
                 <h2>Postez sur Miniature</h2>
                 <textarea rows="5" cols="33">Ecrivez votre minia...</textarea>
                 <br>
@@ -32,7 +35,6 @@
         </article>
 
         <% 
-            if("recommendations".equals(request.getParameter("action"))){
                 List<Post> posts = (List<Post>) request.getAttribute("posts");
                 for (Post post : posts) {
             %>        
@@ -47,10 +49,7 @@
             
                     </article>
             <%
-                }
-            } else if("subscriptions".equals(request.getParameter("action"))){
-            
-            }
+                } 
             %>
 
 

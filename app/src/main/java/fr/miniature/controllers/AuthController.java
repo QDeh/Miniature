@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.jspecify.annotations.NonNull;
 
 import fr.miniature.models.User;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
@@ -21,8 +22,15 @@ public class AuthController extends HttpServlet {
 
     private List<@NonNull User> users = new ArrayList<>();
 
+    // pour tester
+    private User suer = new User("suer", "user@gmail.com", "");
+    private User admin = new User("admin", "user@gmail.com", "admin");
+    private List<User> subscriptions = List.of(suer);
+    
     public void init() {
+        admin.setSubscriptions(subscriptions);
         users.add(new User("shinmen", "shinmen@gmail.com", "123456"));
+        users.add(admin);
     }
 
     @Override

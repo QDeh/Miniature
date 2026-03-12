@@ -16,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/feeds")
 public class FeedController extends HttpServlet {
@@ -29,7 +30,24 @@ public class FeedController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-            req.setAttribute("posts", posts);
+            HttpSession session = req.getSession(false);
+            if (session == null || session.getAttribute("user") == null) {
+                resp.sendRedirect("/login");
+                return;
+            }
+
+            String action = req.getParameter("action");
+            User user = (User) session.getAttribute("user");
+
+            List<@NonNull Post> postsList = posts;
+
+            if("subscriptions".equals(action)){
+                postsList = posts.stream()
+                    .filter(u -> user.getSubscriptions().stream()
+                    .anyMatch(sub -> sub.getLogin().equals(u.getOwner().getLogin())))
+                    .toList();
+            }
+            req.setAttribute("posts", postsList);
             req.getRequestDispatcher("/WEB-INF/views/feeds.jsp").forward(req, resp);
 
     }
@@ -38,7 +56,15 @@ public class FeedController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
 
-        if (action.equals("recommendations")) {
+        if ("logout".equals(action)){
+            HttpSession session = req.getSession(false);
+            if (session != null) {
+                session.invalidate();
+                resp.sendRedirect("/login");
+            }
+            return;   
+        }
+
             /*String loginString = req.getParameter("login");
             String emailString = req.getParameter("email");
             String paString = req.getParameter("password");
@@ -55,9 +81,7 @@ public class FeedController extends HttpServlet {
                 resp.sendRedirect("/login");
             }*/
         
-            
-
-        } else if (action.equals("subscriptions")) {
+        
             /*String loginString = req.getParameter("login");
             String paString = req.getParameter("password");
             boolean found = users.stream()
@@ -74,5 +98,4 @@ public class FeedController extends HttpServlet {
         }*/
 
         }
-}
 }
