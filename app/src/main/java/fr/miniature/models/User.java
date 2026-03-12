@@ -60,11 +60,22 @@ public class User {
         this.password = password;
     }
 
+    public List<User> getSubscriptions() {
+        return subscriptions;
+    }
+
+
+    public void setSubscriptions(List<User> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
 
     @Override
     public String toString() {
         return login;
     }
+
+
+
 
    
     

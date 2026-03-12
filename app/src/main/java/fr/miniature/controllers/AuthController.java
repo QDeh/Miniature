@@ -3,24 +3,34 @@ package fr.miniature.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.jspecify.annotations.NonNull;
 
 import fr.miniature.models.User;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet({"/register", "/login"})
 public class AuthController extends HttpServlet {
 
     private List<@NonNull User> users = new ArrayList<>();
 
+    // pour tester
+    private User suer = new User("suer", "user@gmail.com", "");
+    private User admin = new User("admin", "user@gmail.com", "admin");
+    private List<User> subscriptions = List.of(suer);
+    
     public void init() {
+        admin.setSubscriptions(subscriptions);
         users.add(new User("shinmen", "shinmen@gmail.com", "123456"));
+        users.add(admin);
     }
 
     @Override
@@ -63,10 +73,14 @@ public class AuthController extends HttpServlet {
         } else if (path.equals("/login")) {
             String loginString = req.getParameter("login");
             String paString = req.getParameter("password");
-            boolean found = users.stream()
-                .anyMatch(u -> u.getLogin().equals(loginString) && u.getPassword().equals(paString));
+            Optional<@NonNull User> optUser = users.stream()
+                .filter(u -> u.getLogin().equals(loginString) && u.getPassword().equals(paString))
+                .findFirst();
 
-            if (found) {
+            if (optUser.isPresent()) {
+                HttpSession session = req.getSession();
+                User user = optUser.get();
+                session.setAttribute("user", user);
                 resp.sendRedirect("/feeds");
             } else {
                 req.setAttribute("error", "Login ou mot de passe incorrect");
