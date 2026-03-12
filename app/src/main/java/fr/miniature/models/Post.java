@@ -1,25 +1,39 @@
 package fr.miniature.models;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.text.SimpleDateFormat;
 
 public class Post {
-    private int nbPosts = 0;
+    static int nbPosts = 0;
     private int id;
     private User owner;
     private String content;
-    private int likes;
-    private boolean isLiked;
+    private List<User> likedBy = new ArrayList<>();
+    private Post parent;
     private Date date = new Date();
     private String formattedDate;
 
     
-    public Post(int id, User owner, String content) {
+    public Post(User owner, String content, Post parent) {
         this.id = ++nbPosts;
         this.owner = owner;
         this.content = content;
-        this.likes = 0;
-        this.isLiked = false;
-        this.formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(date) + " à " + new SimpleDateFormat("HH:mm:ss").format(date);
+        this.formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(date) + " à " + new SimpleDateFormat("HH:mm").format(date);
+    }
+
+
+    public int getLikes() {
+        return likedBy.size();
+    }
+
+    public void updateLikes(User user) {
+        if (!likedBy.contains(user)) {
+            likedBy.add(user);
+        }
+        else {
+            likedBy.remove(user);
+        }
     }
 
 
@@ -53,16 +67,6 @@ public class Post {
     }
 
 
-    public int getLikes() {
-        return likes;
-    }
-
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-
     public Date getDate() {
         return date;
     }
@@ -81,25 +85,6 @@ public class Post {
     public void setOwner(User owner) {
         this.owner = owner;
     }
-
-
-    public boolean isLiked() {
-        return isLiked;
-    }
-
-
-    public void setLiked(boolean isLiked) {
-        this.isLiked = isLiked;
-    }
-    
-    public void incrementLikes(int likes){
-        likes++;
-    }
-
-    public void decrementLikes(int likes){
-        likes--;
-    }
-
 
     public String getFormattedDate() {
         return formattedDate;

@@ -20,39 +20,32 @@
         <p>Abonnements <%= ((User) session.getAttribute("user")).getSubscriptions() %>.</p>
     </header>
     <main>
-        <form method="get">
-            <button name="action" value="recommendations" type="submit">Recommendations</button>
-            <button name="action" value="subscriptions" type="submit">Abonnements</button>
-        </form>
 
-        <article>
-            <form method="post" action="/feeds">
-                <h2>Postez sur Miniature</h2>
-                <textarea rows="5" cols="33" name="content" placeholder="Ecrivez votre minia..."></textarea>
-                <br>
-                <button type="submit" name="newPost">Postez votre minia</button>
-            </form>
-        </article>
+
 
         <% 
-                List<Post> posts = (List<Post>) request.getAttribute("posts");
-                for (Post post : posts) {
+                Post post = (Post) request.getAttribute("post");
+ 
             %>        
                     <article>
                         <h3><%= post.getOwner() %></h3>
                         <p>le <%= post.getFormattedDate()%></p>
                         <p><%= post.getContent() %></p>
-                        <form method="post" action="/feeds">
+                        <form method="post" action="/details/<%=post.getId() %>">
                             <button type="submit" name="like" value="<%= post.getId() %>"><%= post.getLikes() %>❤️</button>
-                            <!-- <button type="submit" name="comment" value="<%= post.getId() %>">💬</button> -->
                         </form>
-                        <a href="/details/<%= post.getId() %>">💬</a>
             
                     </article>
             <%
-                } 
             %>
-
+        <article>
+            <form method="post" action="/details">
+                <h2>Ecrire un commentaire</h2>
+                <textarea rows="5" cols="33" name="content" placehoalder="Ecrivez votre commentaire..."></textarea>
+                <br>
+                <button type="submit" name="newComment">Commentez</button>
+            </form>
+        </article>
 
         
         
