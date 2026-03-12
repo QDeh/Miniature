@@ -3,7 +3,6 @@ package fr.miniature.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.jspecify.annotations.NonNull;
@@ -18,13 +17,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/feeds")
+@WebServlet({"/feeds", "/details/*"})
 public class FeedController extends HttpServlet {
 
     private List<@NonNull Post> posts = new ArrayList<>();
 
     public void init() {
-        posts.add(new Post(0, new User("suer", "user@gmail.com", ""), "pcoucou"));
+        posts.add(new Post(new User("suer", "user@gmail.com", ""), "pcoucou", null));
     }
 
     @Override
@@ -35,7 +34,6 @@ public class FeedController extends HttpServlet {
                 resp.sendRedirect("/login");
                 return;
             }
-
             String action = req.getParameter("action");
             User user = (User) session.getAttribute("user");
 
@@ -47,55 +45,64 @@ public class FeedController extends HttpServlet {
                     .anyMatch(sub -> sub.getLogin().equals(u.getOwner().getLogin())))
                     .toList();
             }
+
             req.setAttribute("posts", postsList);
-            req.getRequestDispatcher("/WEB-INF/views/feeds.jsp").forward(req, resp);
+            String path = req.getServletPath();
+            if (path.equals("/feeds")) {
+                // req.setAttribute("posts", postsList);
+                req.getRequestDispatcher("/WEB-INF/views/feeds.jsp").forward(req, resp);
+
+            } else if (path.equals("/details")) {
+                int id = Integer.parseInt(req.getPathInfo().substring(1));
+
+                Post post = posts.stream()
+                    .filter(p -> p.getId() == id)
+                    .findFirst().orElse(null);
+
+                req.setAttribute("post", post);
+                req.getRequestDispatcher("/WEB-INF/views/details.jsp").forward(req, resp);
+
+            }
+            
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        User connectedUser = (User) session.getAttribute("user");
         String action = req.getParameter("action");
+        String content = req.getParameter("content");
+        String like = req.getParameter("like");
+        String comment = req.getParameter("comment");
 
         if ("logout".equals(action)){
-            HttpSession session = req.getSession(false);
             if (session != null) {
                 session.invalidate();
                 resp.sendRedirect("/login");
             }
             return;   
         }
-
-            /*String loginString = req.getParameter("login");
-            String emailString = req.getParameter("email");
-            String paString = req.getParameter("password");
-            String confirmString = req.getParameter("confirm");
-
-            String error = validate(loginString, emailString, paString, confirmString);
-            if (error != null) {
-                req.setAttribute("error", error);
-                req.getRequestDispatcher("/register.jsp").forward(req, resp);
-                return;
-            } else {
-                User newUser = new User(loginString, emailString, paString);
-                users.add(newUser);
-                resp.sendRedirect("/login");
-            }*/
-        
-        
-            /*String loginString = req.getParameter("login");
-            String paString = req.getParameter("password");
-            boolean found = users.stream()
-                .anyMatch(u -> u.getLogin().equals(loginString) && u.getPassword().equals(paString));
-
-            if (found) {
+        for (Post post : posts){
+            String id = String.valueOf(post.getId());
+            if (id.equals(like)){
+                post.updateLikes(connectedUser);
                 resp.sendRedirect("/feeds");
-            } else {
-                req.setAttribute("error", "Login ou mot de passe incorrect");
-                req.getRequestDispatcher("/login.jsp").forward(req, resp);
+                return;
             }
-            
 
-        }*/
-
+            if (id.equals(comment)){
+                resp.sendRedirect("/details");
+                return;
+            }
         }
+
+        if (!content.isEmpty() || content != null) {
+            Post post = new Post(connectedUser, content, null);
+            posts.add(post);
+            resp.sendRedirect("/feeds");
+            return;
+        }
+
+    }
 }
