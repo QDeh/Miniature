@@ -75,6 +75,7 @@ public class FeedController extends HttpServlet {
         String content = req.getParameter("content");
         String like = req.getParameter("like");
         String comment = req.getParameter("comment");
+        String subscription = req.getParameter("subscription");
 
         if ("logout".equals(action)){
             if (session != null) {
@@ -93,6 +94,12 @@ public class FeedController extends HttpServlet {
 
             if (id.equals(comment)){
                 resp.sendRedirect("/details");
+                return;
+            }
+            String idOwner = String.valueOf(post.getOwner().getLogin());
+            if (idOwner.equals(subscription)){
+                connectedUser.manageSubscription(post.getOwner());
+                resp.sendRedirect("/feeds");
                 return;
             }
         }

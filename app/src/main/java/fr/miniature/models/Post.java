@@ -5,7 +5,7 @@ import java.util.List;
 import java.text.SimpleDateFormat;
 
 public class Post {
-    static int nbPosts = 0;
+    private static int nbPosts = 0;
     private int id;
     private User owner;
     private String content;

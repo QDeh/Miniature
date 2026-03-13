@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private int nbUsers = 0;
+    private static int nbUsers = 0;
     private int id;
     private String login;
     private String email;
@@ -69,14 +69,21 @@ public class User {
         this.subscriptions = subscriptions;
     }
 
+    public boolean isSubscribed(User user){
+        return subscriptions.contains(user);
+    }
+
+    public void manageSubscription(User user){
+        if (isSubscribed(user)){
+            subscriptions.remove(user);
+        }else{
+            subscriptions.add(user);
+        }
+    }
+
     @Override
     public String toString() {
         return login;
     }
 
-
-
-
-   
-    
 }

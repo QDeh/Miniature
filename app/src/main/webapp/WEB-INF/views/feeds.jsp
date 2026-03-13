@@ -40,6 +40,10 @@
             %>        
                     <article>
                         <h3><%= post.getOwner() %></h3>
+
+                        <form method="post" action="/feeds">
+                            <button type="submit" name="subscription" value="<%= post.getOwner().getLogin() %>"><%= ((User) session.getAttribute("user")).isSubscribed(post.getOwner()) ? "Se désabonner" : "S'abonner" %></button>
+                        </form>
                         <p>le <%= post.getFormattedDate()%></p>
                         <p><%= post.getContent() %></p>
                         <form method="post" action="/feeds">
