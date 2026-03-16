@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.jspecify.annotations.NonNull;
 
 import fr.miniature.models.User;
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
@@ -24,13 +23,20 @@ public class AuthController extends HttpServlet {
 
     // pour tester
     private User suer = new User("suer", "user@gmail.com", "");
+    private User shinmen = new User("shinmen", "shinmen@gmail.com", "123456");
     private User admin = new User("admin", "user@gmail.com", "admin");
-    private List<User> subscriptions = List.of(suer);
+    private User piedbouche = new User("piedbouche", "piedbouche@gmail.com", "piedbouche");
+    private User corine59 = new User("corine59", "corine@gmail.com", "corine59");
+    private List<User> subscriptions = new ArrayList<>();
     
     public void init() {
         admin.setSubscriptions(subscriptions);
-        users.add(new User("shinmen", "shinmen@gmail.com", "123456"));
+        users.add(suer);
+        users.add(shinmen);
         users.add(admin);
+        users.add(piedbouche);
+        users.add(corine59);
+        
     }
 
     @Override
@@ -60,7 +66,7 @@ public class AuthController extends HttpServlet {
             String error = validate(loginString, emailString, paString, confirmString);
             if (error != null) {
                 req.setAttribute("error", error);
-                req.getRequestDispatcher("/register.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req, resp);
                 return;
             } else {
                 User newUser = new User(loginString, emailString, paString);
@@ -84,7 +90,7 @@ public class AuthController extends HttpServlet {
                 resp.sendRedirect("/feeds");
             } else {
                 req.setAttribute("error", "Login ou mot de passe incorrect");
-                req.getRequestDispatcher("/login.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
             }
             
 

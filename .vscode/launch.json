@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "fr.miniature.App",
+            "projectName": "app"
+        },
+        {
             "name": "Tomcat (F5)",
             "type": "java",
             "request": "attach",

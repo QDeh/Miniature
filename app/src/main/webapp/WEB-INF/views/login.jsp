@@ -7,18 +7,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link rel="stylesheet" href="/css/miniature.css">
 </head>
-<body>
-    <h1>Connexion</h1>
+<body class="auth-page">
+    <a href="/"><h1>MINIATURE</h1></a>
     <main>
+        <h2>Connexion</h2>
         <form method="post" action="/login">
+            
             <input type="text" name="login" placeholder="Nom d'utilisateur">
             <input type="password" name="password" placeholder="Mot de passe">
             <input type="submit" value="Se connecter">
+            
         </form>
-
+        <a href="/"><input type="submit" value="Retour à l'acceuil"></a>
     </main>
-
-
 </body>
 </html>

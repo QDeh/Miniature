@@ -19,7 +19,31 @@ public class Post {
         this.id = ++nbPosts;
         this.owner = owner;
         this.content = content;
+        this.parent = parent;
         this.formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(date) + " à " + new SimpleDateFormat("HH:mm").format(date);
+    }
+
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Post other = (Post) obj;
+        if (id != other.id)
+            return false;
+        return true;
     }
 
 
@@ -36,51 +60,37 @@ public class Post {
         }
     }
 
-
     public int getNbPosts() {
         return nbPosts;
     }
-
-
-    public void setNbPosts(int nbPosts) {
-        this.nbPosts = nbPosts;
-    }
-
 
     public int getId() {
         return id;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getContent() {
         return content;
     }
 
-
     public void setContent(String content) {
         this.content = content;
     }
-
 
     public Date getDate() {
         return date;
     }
 
-
     public void setDate(Date date) {
         this.date = date;
     }
-    
-    
+      
     public User getOwner() {
         return owner;
     }
-
 
     public void setOwner(User owner) {
         this.owner = owner;
@@ -90,10 +100,24 @@ public class Post {
         return formattedDate;
     }
 
-
     public void setFormattedDate(String formattedDate) {
         this.formattedDate = formattedDate;
     }
 
+    public List<User> getLikedBy() {
+        return likedBy;
+    }
+
+    public void setLikedBy(List<User> likedBy) {
+        this.likedBy = likedBy;
+    }
+
+    public Post getParent() {
+        return parent;
+    }
+
+    public void setParent(Post parent) {
+        this.parent = parent;
+    }
 
 }
