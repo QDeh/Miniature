@@ -14,11 +14,10 @@
 <body>
     <header>
         <h1>Miniature</h1>
-
+        <p>Bienvenue <%= ((User) session.getAttribute("user")).getLogin() %></p>
         <form method="post" action="/details">
             <button name="action" value="logout" type="submit">Se déconnecter</button>
         </form>
-        <p>Bienvenue <%= ((User) session.getAttribute("user")).getLogin() %></p>
     </header>
     <main>
 
