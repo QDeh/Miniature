@@ -27,10 +27,8 @@ public class AuthController extends HttpServlet {
     private User admin = new User("admin", "user@gmail.com", "admin");
     private User piedbouche = new User("piedbouche", "piedbouche@gmail.com", "piedbouche");
     private User corine59 = new User("corine59", "corine@gmail.com", "corine59");
-    private List<User> subscriptions = new ArrayList<>();
     
     public void init() {
-        admin.setSubscriptions(subscriptions);
         users.add(suer);
         users.add(shinmen);
         users.add(admin);

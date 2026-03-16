@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/miniature.css">
 </head>
 <body class="auth-page">
-    <a href="/"><h1>MINIATURE</h1></a>
+    <h1>Miniature</h1>
     <main>
         <h2>Connexion</h2>
         <form method="post" action="/login">

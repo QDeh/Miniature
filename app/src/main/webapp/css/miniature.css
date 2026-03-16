@@ -582,7 +582,7 @@ body.auth-page main {
 
 /* Logo en haut des pages auth */
 body.auth-page main::before {
-  content: 'miniature';
+  content: 'Miniature';
   display: block;
   font-family: 'Fredoka', sans-serif;
   font-weight: 700;

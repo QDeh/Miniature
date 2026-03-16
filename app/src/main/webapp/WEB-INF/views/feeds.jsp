@@ -13,7 +13,7 @@
 </head>
 <body>
     <header>
-        <h1>MINIATURE</h1>
+        <h1>Miniature</h1>
         <form method="post" action="/feeds">
             <button name="action" value="logout" type="submit">Se déconnecter</button>
         </form>
@@ -48,11 +48,9 @@
                         <p>le <%= post.getFormattedDate()%></p>
                         <p><%= post.getContent() %></p>
                         <form method="post" action="/feeds">
-                            
                             <button type="submit" name="like" value="<%= post.getId() %>"><%= post.getLikes() %>❤️</button>
-                            
+                            <a href="/details/<%= post.getId() %>">💬</a>
                         </form>
-                        <a href="/details/<%= post.getId() %>">💬</a>
             
                     </article>
             <%

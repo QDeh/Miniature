@@ -49,7 +49,7 @@ public class FeedController extends HttpServlet {
             String path = req.getServletPath();
             if (path.equals("/feeds")) {
                 postsList = postsList.stream()
-                    .sorted((a, b) -> b.getDate().compareTo(a.getDate()))
+                    .sorted((a, b) -> b.getcreatedAt().compareTo(a.getcreatedAt()))
                     .collect(Collectors.toList());
 
                 postsList = postsList.stream()

@@ -11,7 +11,7 @@ public class Post {
     private String content;
     private List<User> likedBy = new ArrayList<>();
     private Post parent;
-    private Date date = new Date();
+    private Date createdAt = new Date();
     private String formattedDate;
 
     
@@ -20,7 +20,7 @@ public class Post {
         this.owner = owner;
         this.content = content;
         this.parent = parent;
-        this.formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(date) + " à " + new SimpleDateFormat("HH:mm").format(date);
+        this.formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(createdAt) + " à " + new SimpleDateFormat("HH:mm").format(createdAt);
     }
 
 
@@ -60,64 +60,32 @@ public class Post {
         }
     }
 
-    public int getNbPosts() {
-        return nbPosts;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public Date getcreatedAt() {
+        return createdAt;
     }
       
     public User getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
     public String getFormattedDate() {
         return formattedDate;
-    }
-
-    public void setFormattedDate(String formattedDate) {
-        this.formattedDate = formattedDate;
     }
 
     public List<User> getLikedBy() {
         return likedBy;
     }
 
-    public void setLikedBy(List<User> likedBy) {
-        this.likedBy = likedBy;
-    }
-
     public Post getParent() {
         return parent;
-    }
-
-    public void setParent(Post parent) {
-        this.parent = parent;
     }
 
 }

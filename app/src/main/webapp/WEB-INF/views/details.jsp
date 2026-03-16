@@ -13,7 +13,7 @@
 </head>
 <body>
     <header>
-        <a href="/"><h1>MINIATURE</h1></a>
+        <h1>Miniature</h1>
 
         <form method="post" action="/details">
             <button name="action" value="logout" type="submit">Se déconnecter</button>

@@ -21,8 +21,7 @@ class User{
 +String login
 +String email
 +String password
-+hashCode() int
-+equals() boolean
++isSubscribed (User user) boolean
 +updateSubscriptions(User user)
 }
 
@@ -30,7 +29,7 @@ class Post{
 -int nbPosts
 +int id
 +String content
--Date date
++Date createdAt
 -String formattedDate
 +hashCode() int
 +equals() boolean
