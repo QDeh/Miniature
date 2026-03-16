@@ -9,15 +9,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miniature</title>
+    <link rel="stylesheet" href="/css/miniature.css">
 </head>
 <body>
     <header>
-        <h1>MINIATURE</h1>
+        <a href="/"><h1>MINIATURE</h1></a>
         <form method="post" action="/feeds">
             <button name="action" value="logout" type="submit">Se déconnecter</button>
         </form>
-        <p>Bienvenue <%= ((User) session.getAttribute("user")).getLogin() %>.</p>
-        <p>Abonnements <%= ((User) session.getAttribute("user")).getSubscriptions() %>.</p>
+        <p>Bienvenue <%= ((User) session.getAttribute("user")).getLogin() %></p>
+        <%-- <p>Abonnements <%= ((User) session.getAttribute("user")).getSubscriptions() %>.</p> --%>
     </header>
     <main>
         <form method="get">
@@ -37,19 +38,26 @@
         <% 
                 List<Post> posts = (List<Post>) request.getAttribute("posts");
                 for (Post post : posts) {
+                   
             %>        
                     <article>
-                        <h3><%= post.getOwner() %></h3>
+                        <form method="post" action="/feeds">
+                            <h3><%= post.getOwner() %></h3>
+                            <button type="submit" name="subscribe" value="<%= post.getId() %>">Suivre</button>
+                        </form>
+                        
                         <p>le <%= post.getFormattedDate()%></p>
                         <p><%= post.getContent() %></p>
                         <form method="post" action="/feeds">
+                            
                             <button type="submit" name="like" value="<%= post.getId() %>"><%= post.getLikes() %>❤️</button>
-                            <!-- <button type="submit" name="comment" value="<%= post.getId() %>">💬</button> -->
+                            
                         </form>
                         <a href="/details/<%= post.getId() %>">💬</a>
             
                     </article>
             <%
+                    
                 } 
             %>
 

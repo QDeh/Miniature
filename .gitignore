@@ -11,3 +11,5 @@ build
 .obsidian
 
 app/bin
+
+/app/tomcat*
