@@ -41,7 +41,7 @@
             %>        
                     <article>
                         <form method="post" action="/feeds">
-                            <h3><%= post.getOwner() %></h3>
+                            <h3><%= post.getOwner().getLogin() %></h3>
                             <button type="submit" name="subscribe" value="<%= post.getId() %>"><%= ((User) session.getAttribute("user")).isSubscribed(post.getOwner()) ? "Suivi" : "Suivre" %></button>
                         </form>
                         

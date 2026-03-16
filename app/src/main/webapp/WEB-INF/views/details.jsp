@@ -31,7 +31,7 @@
             %>        
                     <article>
                         <form method="post" action="/details/<%=post.getId() %>">
-                            <h3><%= post.getOwner() %></h3>
+                            <h3><%= post.getOwner().getLogin() %></h3>
                         </form>
                         <p>le <%= post.getFormattedDate()%></p>
                         <p><%= post.getContent() %></p>
@@ -49,7 +49,7 @@
                 %>        
                     <article>
                         <form method="post" action="/details/<%=post.getId() %>">
-                            <h3><%= postComment.getOwner() %></h3>
+                            <h3><%= postComment.getOwner().getLogin() %></h3>
                         </form>
                         <p>le <%= postComment.getFormattedDate()%></p>
                         <p><%= postComment.getContent() %></p>
