@@ -143,13 +143,6 @@ public class FeedController extends HttpServlet {
             System.out.println("postID : " + postId);
             for (Post post : posts) {
                 String id = String.valueOf(post.getId());
-
-                if (subscribe != null && id.equals(subscribe)) {
-                    User author = post.getOwner();
-                    connectedUser.updateSubscriptions(author);
-                    resp.sendRedirect("/details/" + id);
-                    return;
-                }
                 if (like != null && id.equals(like)){
                     post.updateLikes(connectedUser);
                     resp.sendRedirect("/details/" + postId);
@@ -162,10 +155,8 @@ public class FeedController extends HttpServlet {
                         posts.add(newComment);
                         resp.sendRedirect("/details/" + id);
                         return;
-                    }
-                    
+                    }   
                 }
-            
             }
         }
 
