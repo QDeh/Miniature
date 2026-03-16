@@ -9,7 +9,7 @@
     <title>Register Page</title>
     <link rel="stylesheet" href="/css/miniature.css">
 </head>
-<body>
+<body class="auth-page">
     <a href="/index.jsp"><h1>MINIATURE</h1></a>
     
     <main>
@@ -19,9 +19,9 @@
             <input type="email" name="email" placeholder="Adresse mail">
             <input type="password" name="password" placeholder="Mot de passe">
             <input type="password" name="confirm" placeholder="Confirmer le mot de passe">
-            <input type="submit" value="Se connecter">
+            <input type="submit" value="S'inscrire">
         </form>
-        <a href="/index.jsp"><input type="submit" value="Retour à l'acceuil"></a>
+        <a href="/"><input type="submit" value="Retour à l'acceuil"></a>
 
     </main>
 

@@ -136,20 +136,25 @@ main {
 /* ══════════════════════════════════════════
    INDEX / HERO PAGE
 ══════════════════════════════════════════ */
-.hero {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-}
 
-.hero-visual {
-  position: relative;
-  height: 100vh;
+body:not(:has(header)):not(.auth-page) {
+  display: grid;
+  grid-template-columns: 50vw 1fr;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f8fc 0%, #faf7ff 100%);
   overflow: hidden;
 }
 
-.hero-visual img {
+/* Figure — colonne gauche */
+body:not(:has(header)):not(.auth-page) figure {
+  position: relative;
+  width: 50vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+body:not(:has(header)):not(.auth-page) figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -157,106 +162,131 @@ main {
   display: block;
 }
 
-.hero-visual::after {
+/* Fondue vers la droite */
+body:not(:has(header)):not(.auth-page) figure::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, transparent 60%, var(--bg) 100%);
+  top: 0; right: 0;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #f0f8fc);
+  pointer-events: none;
 }
 
-.hero-content {
-  padding: 60px 52px 60px 40px;
+/* Main — colonne droite */
+body:not(:has(header)):not(.auth-page) main {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding: 60px 52px;
+  max-width: none;
+  margin: 0;
   gap: 20px;
+  background: linear-gradient(135deg, #f0f8fc 0%, #faf7ff 100%);
 }
 
-.hero-content .logo {
+body:not(:has(header)):not(.auth-page) h1 {
   font-family: 'Fredoka', sans-serif;
   font-weight: 700;
-  font-size: 3.2rem;
+  font-size: 3rem;
   letter-spacing: -0.02em;
   line-height: 1;
   background: linear-gradient(130deg, var(--sky-dark) 0%, var(--sky) 55%, var(--pink) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: block;
 }
 
-.hero-content .tagline {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  max-width: 320px;
-}
-
-.hero-actions {
+body:not(:has(header)):not(.auth-page) article {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: 280px;
-  margin-top: 8px;
+  gap: 14px;
+  animation: fadeUp 0.5s ease;
 }
 
-.hero-actions a {
+body:not(:has(header)):not(.auth-page) article:hover {
+  transform: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+body:not(:has(header)):not(.auth-page) article::before { display: none; }
+
+body:not(:has(header)):not(.auth-page) article p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0 0 8px;
+}
+
+/* Boutons CTA */
+.btn-primary,
+.btn-secondary {
   display: block;
   text-align: center;
-  padding: 14px 24px;
+  padding: 15px 24px;
   border-radius: var(--radius);
   font-family: 'Fredoka', sans-serif;
   font-weight: 600;
   font-size: 1rem;
   transition: all 0.22s;
+  max-width: 320px;
 }
 
-.hero-actions a.btn-primary {
+.btn-primary {
   background: var(--sky);
   color: #fff;
   box-shadow: var(--sky-glow);
 }
 
-.hero-actions a.btn-primary:hover {
+.btn-primary:hover {
   background: var(--sky-dark);
+  color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 6px 24px rgba(91,191,224,0.45);
 }
 
-.hero-actions a.btn-secondary {
+.btn-secondary {
   background: var(--surface);
   color: var(--sky-dark);
   border: 2px solid var(--border2);
 }
 
-.hero-actions a.btn-secondary:hover {
+.btn-secondary:hover {
   border-color: var(--sky);
   background: var(--sky-dim);
+  color: var(--sky-dark);
   transform: translateY(-2px);
 }
 
-.hero-floats {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
-.hero-floats span {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 6px 14px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-@media (max-width: 700px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero-visual { height: 40vh; }
-  .hero-visual::after { background: linear-gradient(to bottom, transparent 60%, var(--bg) 100%); }
-  .hero-content { padding: 32px 20px; }
-  .hero-content .logo { font-size: 2.4rem; }
+@media (max-width: 768px) {
+  body:not(:has(header)):not(.auth-page) main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  body:not(:has(header)):not(.auth-page) main img {
+    grid-column: 1;
+    grid-row: 1;
+    height: 40vh;
+  }
+  body:not(:has(header)):not(.auth-page) h1 {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 32px 24px 0;
+    font-size: 2.2rem;
+  }
+  body:not(:has(header)):not(.auth-page) article {
+    grid-column: 1;
+    grid-row: 3;
+    padding: 16px 24px 40px;
+  }
+  .btn-primary, .btn-secondary { max-width: 100%; }
 }
 
 /* ══════════════════════════════════════════
@@ -523,8 +553,9 @@ article form {
 
 /* ══════════════════════════════════════════
    AUTH PAGES (login / register)
+   Ajouter class="auth-page" sur le <body>
 ══════════════════════════════════════════ */
-body:not(:has(header)) {
+body.auth-page {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -532,9 +563,9 @@ body:not(:has(header)) {
   background: linear-gradient(145deg, #dff0f9 0%, #f2f8fc 50%, #fef0f5 100%);
 }
 
-body:not(:has(header)) h1 { display: none; }
+body.auth-page h1 { display: none; }
 
-body:not(:has(header)) main {
+body.auth-page main {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -550,7 +581,7 @@ body:not(:has(header)) main {
 }
 
 /* Logo en haut des pages auth */
-body:not(:has(header)) main::before {
+body.auth-page main::before {
   content: 'miniature';
   display: block;
   font-family: 'Fredoka', sans-serif;
@@ -565,17 +596,17 @@ body:not(:has(header)) main::before {
   background-clip: text;
 }
 
-body:not(:has(header)) h2 {
+body.auth-page h2 {
   text-align: center;
   margin-bottom: 24px;
   font-size: 0.9rem;
 }
 
-body:not(:has(header)) form {
+body.auth-page form {
   gap: 14px;
 }
 
-body:not(:has(header)) input[type="submit"] {
+body.auth-page input[type="submit"] {
   width: 100%;
   text-align: center;
   padding: 14px;
@@ -585,19 +616,19 @@ body:not(:has(header)) input[type="submit"] {
 }
 
 /* Lien switch login ↔ register */
-body:not(:has(header)) .switch-link {
+body.auth-page .switch-link {
   text-align: center;
   margin-top: 18px;
   font-size: 0.83rem;
   color: var(--text-muted);
 }
 
-body:not(:has(header)) .switch-link a {
+body.auth-page .switch-link a {
   color: var(--sky-dark);
   font-weight: 700;
 }
 
-body:not(:has(header)) .switch-link a:hover { color: var(--sky); }
+body.auth-page .switch-link a:hover { color: var(--sky); }
 
 /* ══════════════════════════════════════════
    ERREURS

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    static int nbUsers = 0;
+    private static int nbUsers = 0;
     private int id;
     private String login;
     private String email;
@@ -85,8 +85,12 @@ public class User {
         this.subscriptions = subscriptions;
     }
 
+    public boolean isSubscribed(User user) {
+        return subscriptions.contains(user);
+    }
+
     public void updateSubscriptions(User user) {
-        if (!subscriptions.contains(user)) {
+        if (!isSubscribed(user)) {
             subscriptions.add(user);
         } else {
             subscriptions.remove(user);

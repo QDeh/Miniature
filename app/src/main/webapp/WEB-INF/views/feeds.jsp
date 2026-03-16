@@ -13,12 +13,11 @@
 </head>
 <body>
     <header>
-        <a href="/"><h1>MINIATURE</h1></a>
+        <h1>MINIATURE</h1>
         <form method="post" action="/feeds">
             <button name="action" value="logout" type="submit">Se déconnecter</button>
         </form>
         <p>Bienvenue <%= ((User) session.getAttribute("user")).getLogin() %></p>
-        <%-- <p>Abonnements <%= ((User) session.getAttribute("user")).getSubscriptions() %>.</p> --%>
     </header>
     <main>
         <form method="get">
@@ -43,7 +42,7 @@
                     <article>
                         <form method="post" action="/feeds">
                             <h3><%= post.getOwner() %></h3>
-                            <button type="submit" name="subscribe" value="<%= post.getId() %>">Suivre</button>
+                            <button type="submit" name="subscribe" value="<%= post.getId() %>"><%= ((User) session.getAttribute("user")).isSubscribed(post.getOwner()) ? "Suivi" : "Suivre" %></button>
                         </form>
                         
                         <p>le <%= post.getFormattedDate()%></p>

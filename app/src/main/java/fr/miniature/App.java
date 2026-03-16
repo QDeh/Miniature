@@ -30,7 +30,7 @@ public class App {
         WebResourceRoot resources = new StandardRoot(context);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", classesFolder.getAbsolutePath(), "/"));
         context.setResources(resources);
-        context.addWelcomeFile("index.jsp");
+        context.addWelcomeFile("index.html");
         try{
             tomcat.start();
         } catch (LifecycleException e) {
