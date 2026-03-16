@@ -18,8 +18,7 @@
         <form method="post" action="/details">
             <button name="action" value="logout" type="submit">Se déconnecter</button>
         </form>
-        <%-- <p>Bienvenue <%= ((User) session.getAttribute("user")).getLogin() %>.</p>
-        <p>Abonnements <%= ((User) session.getAttribute("user")).getSubscriptions() %>.</p> --%>
+        <p>Bienvenue <%= ((User) session.getAttribute("user")).getLogin() %></p>
     </header>
     <main>
 
